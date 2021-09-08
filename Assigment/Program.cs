@@ -14,24 +14,34 @@ namespace Assigment
 
             //makes sure the terminal doesnt echo the input. 
             string input = null;
-                while (true)
-                {
-                    var key = System.Console.ReadKey(true);
-                    if (key.Key == ConsoleKey.Enter)
-                        break;
-                    input += key.KeyChar;
-                }
-            
+            while (true)
+            {
+                var key = System.Console.ReadKey(true);
+                if (key.Key == ConsoleKey.Enter)
+                    break;
+                input += key.KeyChar;
+            }
 
-            new Program(Convert.ToInt32(input));
+            int year;
+            if(int.TryParse(input, out year)){
+                new Program(year);
+            } else {
+                Console.WriteLine("The input must be an integer");
+            }
+            
         }
 
         public Program(int year){
-            this.leapYear = IsLeapYear(year); 
-            
-            this.answer = response(leapYear);
 
-            Console.WriteLine(answer);
+            if(year < 1582){
+                Console.WriteLine("The year must be at least 1582");
+            } else {
+                this.leapYear = IsLeapYear(year);   
+            
+                this.answer = response(leapYear);
+
+                Console.WriteLine(answer);
+            }
         }
 
         public bool IsLeapYear(int year){
